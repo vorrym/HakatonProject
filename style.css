@@ -74,12 +74,14 @@
       }
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #1e213f;
     color: #d7e0ff;
     margin: 0;
     padding: 20px;
     box-sizing: border-box;
-}
+    background: linear-gradient(to bottom right, #111122, #222233, #333344);
+    background-size: cover;
+    background-repeat: no-repeat;
+    }
 
 
 .btn {
@@ -265,3 +267,52 @@ ul li button {
     padding: 5px 10px;
     font-size: 0.8em;
 }
+/* Основной контейнер для слайдера */
+.slider-container {
+    width: 100%;
+    overflow-x: auto;  /* Включаем горизонтальную прокрутку */
+    scroll-behavior: smooth;  /* Плавная прокрутка */
+    white-space: nowrap;  /* Запрещаем перенос строк, чтобы слайды шли в ряд */
+    margin: 20px 0;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Слайдер, в котором содержатся слайды */
+.slider {
+    display: inline-block;
+    width: 100%; /* Или другую ширину */
+  
+}
+
+/* Каждый отдельный слайд */
+.slide {
+    display: inline-block;
+    width: 400px;  /* Увеличена ширина слайда */
+    height: auto; /* Высота теперь автоматически подстраивается под контент */
+    margin-right: 10px;  /* Отступ между слайдами */
+    background-color: #333344;
+    border-radius: 10px;
+    padding: 30px; /* Увеличен отступ внутри слайда */
+    box-sizing: border-box;
+    text-align: center;
+    vertical-align: top; /* Слайды будут выровнены по верхнему краю */
+    white-space: normal;  /* Включаем перенос текста внутри слайда */
+    border: 2px solid #ddd;
+
+}
+
+/* Стили для заголовков и текста */
+.slide h2 {
+    font-size: 24px; /* Увеличен размер заголовка */
+    color:bisque;
+    margin-bottom: 15px; /* Увеличен отступ снизу для заголовка */
+}
+
+.slide p {
+    font-size: 16px; /* Увеличен размер текста */
+    color: bisque;
+    line-height: 1.6;  /* Увеличиваем межстрочный интервал для удобства чтения */
+    text-align: left;  /* Выровняем текст по левому краю для лучшей читабельности */
+}
+
