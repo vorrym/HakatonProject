@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Study Motivation App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Study Motivation App</h1>
+
+        <!-- Pomodoro Timer Section -->
+        <div class="pomodoro">
+            <h2>Pomodoro Timer</h2>
+            <div id="timer">25:00</div>
+            <button onclick="startPomodoro()">Start</button>
+            <button onclick="resetPomodoro()">Reset</button>
+        </div>
+
+        <!-- Daily Challenge Section -->
+        <div class="challenge">
+            <h2>Daily Study Challenge</h2>
+            <div id="daily-challenge"></div>
+            <button onclick="generateChallenge()">Get Today's Challenge</button>
+        </div>
+
+        <!-- Motivation Section -->
+        <div class="motivation">
+            <h2>Motivational Quotes</h2>
+            <div id="quote"></div>
+            <button onclick="generateMotivation()">Get Motivation</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
