@@ -68,16 +68,6 @@ body {
     box-sizing: border-box;
 }
 
-.container {
-    max-width: 90%;
-    margin: auto;
-    text-align: center;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-
-}
 
 .btn {
     padding: 10px 20px;
