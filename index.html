@@ -42,8 +42,10 @@
 
 
         
-<button id="open-modal" class="btn">Вход / Регистрация</button>
-        <!-- Кнопка для открытия модального окна -->
+<div class="container">
+        <h1>Добро пожаловать!</h1>
+
+        <button id="open-modal" class="btn">Вход / Регистрация</button> <!-- Кнопка для открытия модального окна -->
 
         <div id="modal" class="modal">
             <div class="modal-content">
@@ -77,18 +79,6 @@
                 <div id="message"></div>
             </div>
         </div>
-
-        <div id="dashboard" style="display:none;">
-            <h2>Панель управления</h2>
-            <div id="user-view">
-                <p id="user-role"></p>
-                <p>Выполнено задач: <span id="tasks-completed">0</span></p>
-                <button class="btn task-done" onclick="completeTask()">Выполнить задачу</button>
-            </div>
-        </div>
-
-        <div id="quote"></div>
-    </div>
 
     <script src="auth.js"></script>
      <script>           
