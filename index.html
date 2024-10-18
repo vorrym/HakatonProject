@@ -93,7 +93,26 @@
     </div>
 
     <script src="auth.js"></script>
+<script>
+    // Открытие и закрытие модального окна
+        const modal = document.getElementById("modal");
+        const openModalButton = document.getElementById("open-modal");
+        const closeModalButton = document.getElementById("close-modal");
 
+        openModalButton.onclick = function() {
+            modal.style.display = "block"; // Открываем модальное окно
+        }
+
+        closeModalButton.onclick = function() {
+            modal.style.display = "none"; // Закрываем модальное окно
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none"; // Закрываем модальное окно при клике вне его
+            }
+        }
+            </script>
         
         
         <!-- Мотивация -->
