@@ -38,7 +38,38 @@
             </form>
             <ul id="custom-task-list"></ul>
         </div>
+    <div class="container">
+        <h1>Добро пожаловать!</h1>
 
+        <!-- Регистрация/Вход -->
+        <div class="auth">
+            <form id="auth-form">
+                <input type="text" id="username" placeholder="Имя пользователя" required>
+                <input type="password" id="password" placeholder="Пароль" required>
+                <select id="role">
+                    <option value="student">Ученик</option>
+                    <option value="parent">Родитель</option>
+                </select>
+                <button type="submit" class="btn">Войти</button>
+            </form>
+        </div>
+
+        <div id="dashboard" style="display:none;">
+            <h2>Панель управления</h2>
+            <div id="student-view" style="display:none;">
+                <p>Ваши задания:</p>
+                <p>Выполнено задач: <span id="student-tasks-completed">0</span></p>
+                <button class="btn task-done" onclick="completeTask()">Выполнить задачу</button>
+            </div>
+            <div id="parent-view" style="display:none;">
+                <p>Отчёт и прогресс ребёнка:</p>
+                <p id="child-progress"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="auth.js"></script>
         <!-- Мотивация -->
         <div class="motivation">
             <h2>Мотивационные Цитаты</h2>
