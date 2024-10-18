@@ -96,51 +96,131 @@ let pomodoro = document.getElementById("pomodoro-timer");
       });
 
 // Ежедневные Задачи
-const challenges = [
-    "Решите 5 задач по математике.",
-    "Прочитайте 10 страниц книги.",
-    "Напишите краткое изложение новой темы.",
-    "Выучите 3 новых слова на иностранном языке.",
-    "Посмотрите короткое обучающее видео."
+const challengesRussian = [
+  "9 задание. Правописание корней",
+  "10 задание. Правописание приставок",
+  "11 задание. Правописание суффиксов",
+  "12 задание. Правописание глаголов",
+  "13 задание. Правописание не и ни",
+  "14 задание. Слитное, дефисное написание",
+  "15 задание. Правописание Н и НН",
+  "16 задание. Пунктуация ССП",
+  "17 задание. Обособленные члены",
+  "18 задание. Знаки препинания при конструкциях",
+  "19 задание. Знаки препинания в СПП",
+  "20 задание. Знаки препинания в предложениях с разными видами связи",
+  "21 задание. Пунктуационный анализ. Тире, двоеточие",
+  "7 задание. Морфологические нормы",
+  "8 задание. Синтаксические нормы",
+  "4 задание. Ударения",
+  "5 задание. Паронимы",
+  "Повторить орфографию. Решение заданий 9-15",
+  "6 задание. Плеоназмы",
+  "1 задание. Главная информация в тексте",
+  "2 задание. Средства связи",
+  "3 задание. Лексическое значение слова",
+  "22 задание. Смысловой анализ текста",
+  "23 задание. Типы речи",
+  "24 задание. Синонимы, антонимы. Лексическое значение слова",
+  "25 задание. Средства связи предложений",
+  "26 задание. Языковые средства выразительности",
+  "Повторить пунктуацию. Решение заданий 16-21",
+  "Повторить орфографию. Решение заданий 9-15",
+  "Повторить пунктуацию. Решение заданий 16-21",
+  "4 задание. Ударения",
+  "5 задание. Паронимы",
+  "Повторить Работу над текстом",
+  "Комплексное повторение",
+  "Решение теста - все задания",
+  "Сочинение"
 ];
 
-let tasksCompleted = localStorage.getItem('tasksCompleted') || 0;
-document.getElementById('tasks-completed').textContent = tasksCompleted;
-
+const challengesMath = [
+  "Задание 04. Определение вероятностей",
+  "Задание 05. Теория вероятностей",
+  "Задание 06. Простейшие уравнения",
+  "Задание 07. Значение выражения",
+  "Задание 08. Производная и первообразная",
+  "Задание 09. Задачи с прикладным содержанием",
+  "Задание 10. Текстовые задачи",
+  "Задание 11. Функции",
+  "Задание 12. Исследование функций",
+  "Задание 13. Уравнения",
+  "Задание 15. Неравенства",
+  "Задание 16. Финансовая математика",
+  "Задание 18. Параметры",
+  "Задание 19. Числа и их свойства",
+  "Геометрия",
+  "Задание 01. Планиметрия",
+  "Задание 02. Векторы",
+  "Задание 03. Стереометрия",
+  "Задание 14. Стереометрическая задача",
+  "Задание 17. Планиметрическая задача"
+];
+// Функция для генерации нового задания
 function generateChallenge() {
-    const challenge = challenges[Math.floor(Math.random() * challenges.length)];
-    document.getElementById('daily-challenge').textContent = challenge;
+  const challengeType = document.getElementById("challenge-type").value;
+  let challenges = challengeType === "math" ? challengesMath : challengesRussian;
+
+  if (challenges.length === 0) {
+      document.getElementById("daily-challenge").innerText = "Все задания выполнены!";
+      return;
+  }
+
+  const randomIndex = Math.floor(Math.random() * challenges.length);
+  currentChallenge = challenges[randomIndex];
+
+  // Удаляем задание из массива (если не нужно удалять задания, уберите эту строку)
+  // challenges.splice(randomIndex, 1);
+
+  // Обновляем текст задания
+  document.getElementById("daily-challenge").innerText = currentChallenge;
 }
 
+// Функция для отметки задания как выполненного
 function markTaskDone() {
-    tasksCompleted++;
-    localStorage.setItem('tasksCompleted', tasksCompleted);
-    document.getElementById('tasks-completed').textContent = tasksCompleted;
-    alert("Задание выполнено! Отличная работа!");
+  if (currentChallenge === "") {
+      alert("Сначала выберите задание!");
+      return;
+  }
+
+  completedTasks++;
+  document.getElementById('tasks-completed').textContent = completedTasks;
+  alert("Задание выполнено! Отличная работа!");
+
+  // Очищаем текущее задание после выполнения
+  currentChallenge = "";
+  document.getElementById("daily-challenge").innerText = "Выберите новое задание!";
 }
+
+//function markTaskDone() {
+//    tasksCompleted++;
+//    localStorage.setItem('tasksCompleted', tasksCompleted);
+//    document.getElementById('tasks-completed').textContent = tasksCompleted;
+//    alert("Задание выполнено! Отличная работа!");
+//}
 
 // Собственные задачи
 function addCustomTask() {
-    const taskText = document.getElementById('custom-task-input').value.trim();
-    if (taskText) {
-        const ul = document.getElementById('custom-task-list');
-        const li = document.createElement('li');
-        li.textContent = taskText;
-        
-        const btn = document.createElement('button');
-        btn.textContent = "Выполнено";
-        btn.classList.add('task-done');
-        btn.onclick = function () {
-            ul.removeChild(li);
-            markTaskDone();
-        };
+  const taskText = document.getElementById('custom-task-input').value.trim();
+  if (taskText) {
+      const ul = document.getElementById('custom-task-list');
+      const li = document.createElement('li');
+      li.textContent = taskText;
+      
+      const btn = document.createElement('button');
+      btn.textContent = "Выполнено";
+      btn.classList.add('task-done');
+      btn.onclick = function () {
+          ul.removeChild(li);
+          markTaskDone();
+      };
 
-        li.appendChild(btn);
-        ul.appendChild(li);
-        document.getElementById('custom-task-input').value = "";
-    }
+      li.appendChild(btn);
+      ul.appendChild(li);
+      document.getElementById('custom-task-input').value = "";
+  }
 }
-
 // Мотивационные Цитаты
 const motivationalQuotes = [
     "Билл Гейтс: 'Не сравнивайте себя с кем-либо в этом мире. Если вы это делаете, вы оскорбляете себя.'",
