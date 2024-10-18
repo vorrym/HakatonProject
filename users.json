@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "username": "student1",
+      "password": "password123",
+      "role": "student",
+      "tasksCompleted": 0
+    },
+    {
+      "username": "parent1",
+      "password": "password456",
+      "role": "parent",
+      "childUsername": "student1"
+    }
+  ]
+}
