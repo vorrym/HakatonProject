@@ -1,195 +1,77 @@
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-    margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
+  background-color: #1e213f;
+  color: #d7e0ff;
 }
-
 .container {
-    max-width: 90%;
-    margin: auto;
-    text-align: center;
-    background-color: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 100%;
+  padding: 10px 0;
 }
 
-.btn {
-    padding: 10px 20px;
-    margin-top: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+.timer {
+  display: inline-block;
+  padding: 10px;
+  width: 600px;
+  box-sizing: border-box;
 }
-
-.btn:hover {
-    background-color: #0056b3;
-}
-
-/* Стили для модального окна */
-.modal {
-    display: none; /* Скрыто по умолчанию */
-    position: fixed; /* Окно фиксировано */
-    z-index: 1; /* На переднем плане */
-    left: 0;
-    top: 0;
-    width: 100%; /* Полная ширина */
-    height: 100%; /* Полная высота */
-    overflow: auto; /* Если нужно, добавим прокрутку */
-    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный фон */
-}
-
-.modal-content {
-    background-color: #fff;
-    margin: 15% auto; /* Центрирование окна */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Ширина окна */
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Расположение кнопки в углу */
-#open-modal {
-    position: fixed; /* Фиксированное положение */
-    top: 20px; /* Отступ сверху */
-    right: 20px; /* Отступ справа */
-    z-index: 2; /* На переднем плане */
-}
-
 h1 {
-    font-size: 2.2em;
-    color: #2c3e50;
-    margin-bottom: 20px;
+  font-size: 2em;
+  width: 8ch;
+  margin: 20px auto;
+}
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+.button {
+  background-color: #2e325a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+.button:hover {
+  background-color: #f87070;
+}
+.hidden {
+  display: block;
+}
+.timer-display {
+  font-size: 5em;
+  margin-top: 20px;
+  font-weight: bold;
+}
+#buttons {
+  margin-top: 20px;
+}
+#start,
+#stop {
+  background-color: #2e325a;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
 }
 
-h2 {
-    font-size: 1.6em;
-    color: #34495e;
-    margin-top: 20px;
+#stop:hover {
+  background-color: tomato;
 }
+#start:hover {
+  background-color: #219a52;
+}
+ #timer-message {
+   color: white;
+   background-color: tomato;
+   display: none;
+   padding: .5em;
+   font-size: 1em;
+   text-align: center;
+   border-radius: 1em;
+      }
 
-#timer {
-    font-size: 3em;
-    color: #e74c3c;
-    margin-top: 15px;
-}
-
-.button-group, .challenge, .motivation, .custom-tasks {
-    margin-top: 25px;
-}
-
-button {
-    padding: 10px 20px;
-    margin: 5px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s ease, transform 0.2s;
-}
-
-button:hover {
-    transform: scale(1.05);
-}
-
-.start {
-    background-color: #3498db;
-    color: #fff;
-}
-
-.start:hover {
-    background-color: #2980b9;
-}
-
-.reset {
-    background-color: #e74c3c;
-    color: #fff;
-}
-
-.reset:hover {
-    background-color: #c0392b;
-}
-
-.task-done {
-    background-color: #2ecc71;
-    color: #fff;
-}
-
-.task-done:hover {
-    background-color: #27ae60;
-}
-
-.new-task {
-    background-color: #9b59b6;
-    color: #fff;
-}
-
-.new-task:hover {
-    background-color: #8e44ad;
-}
-
-.add {
-    background-color: #f39c12;
-    color: #fff;
-}
-
-.add:hover {
-    background-color: #e67e22;
-}
-
-.quote {
-    background-color: #f39c12;
-    color: #fff;
-}
-
-.quote:hover {
-    background-color: #e67e22;
-}
-
-input[type="text"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    width: 70%;
-    margin-right: 10px;
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 15px;
-}
-
-ul li {
-    padding: 10px;
-    background-color: #ecf0f1;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-ul li button {
-    padding: 5px 10px;
-    font-size: 0.8em;
-}
