@@ -157,7 +157,6 @@ function generateMotivation() {
 
 // Инициализация
 window.onload = function() {
-    resetPomodoro();
     generateChallenge();
     generateMotivation();
 };
