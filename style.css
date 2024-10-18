@@ -10,6 +10,10 @@
   display: flex;
   justify-content: center;
 }
+.container {
+    text-align: center;
+}
+
 .button {
   background-color: #2e325a;
   color: #fff;
