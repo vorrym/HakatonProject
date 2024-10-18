@@ -22,11 +22,21 @@
 
         <!-- Ежедневные Задачи -->
         <div class="challenge">
-            <h2>Ежедневное Задание</h2>
+            <h2>Ежедневные Задачи</h2>
             <div id="daily-challenge"></div>
             <button class="btn task-done" onclick="markTaskDone()">Задание выполнено</button>
             <p>Выполнено задач сегодня: <span id="tasks-completed">0</span></p>
             <button class="btn new-task" onclick="generateChallenge()">Новое задание</button>
+        </div>
+
+        <!-- Собственные Задачи -->
+        <div class="custom-tasks">
+            <h2>Мои Задачи</h2>
+            <form onsubmit="addCustomTask(); return false;">
+                <input type="text" id="custom-task-input" placeholder="Введите свою задачу">
+                <button class="btn add" type="submit">Добавить задачу</button>
+            </form>
+            <ul id="custom-task-list"></ul>
         </div>
 
         <!-- Мотивация -->
