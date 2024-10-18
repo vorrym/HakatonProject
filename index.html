@@ -41,14 +41,19 @@
       </div>
     </div>
         
-        <!-- Ежедневные Задачи -->
-        <div class="challenge">
-            <h2>Ежедневные Задачи</h2>
-            <div id="daily-challenge"></div>
-            <button class="btn task-done" onclick="markTaskDone()">Задание выполнено</button>
-            <p>Выполнено задач сегодня: <span id="tasks-completed">0</span></p>
-            <button class="btn new-task" onclick="generateChallenge()">Новое задание</button>
-        </div>
+    <!-- Ежедневные Задачи -->
+    <div class="challenge">
+        <h2>Ежедневные Задачи</h2>
+        <label for="challenge-type">Выберите тип задания:</label>
+        <select id="challenge-type">
+            <option value="russian">Русский язык</option>
+            <option value="math">Математика</option>
+        </select>
+        <div id="daily-challenge">Нажмите "Новое задание", чтобы начать!</div>
+        <button class="btn task-done" onclick="markTaskDone()">Задание выполнено</button>
+        <p>Выполнено задач сегодня: <span id="tasks-completed">0</span></p>
+        <button class="btn new-task" onclick="generateChallenge()">Новое задание</button>
+    </div>
 
         <!-- Собственные Задачи -->
         <div class="custom-tasks">
@@ -136,6 +141,7 @@
         <div class="motivation">
             <h2>Мотивационные Цитаты</h2>
             <button class="btn quote" onclick="generateMotivation()">Получить мотивацию</button>
+
             <div class="slider-container">
                 <div class="slider">
                     <!-- Первый слайд -->
@@ -190,7 +196,7 @@
                 </div>
             </div>
     </div>
-    <div class="uspeh">
+    <div class="slider-container">
         <h2>Личности, которые добились успеха благодаря учебе:</h2>
         <div class="slider">
         <!-- Четырнадцатый слайд -->
