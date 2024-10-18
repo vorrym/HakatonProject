@@ -1,105 +1,64 @@
-// auth.js
+// Регистрация пользователя
+document.getElementById('register-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
-// Импортировать данные пользователей из JSON-файла
-let users = [];
-fetch('users.json')
-    .then(response => response.json())
-    .then(data => {
-        users = data.users; // Предполагаем, что данные находятся в массиве users
-    });
+    const username = document.getElementById('register-username').value;
+    const email = document.getElementById('register-email').value;
+    const password = document.getElementById('register-password').value;
+    const registerMessage = document.getElementById('register-message'); // Элемент для вывода сообщения
 
-// Функция для сохранения пользователей в JSON-файл (для демонстрационных целей)
-function saveUsers() {
-    const blob = new Blob([JSON.stringify({ users }, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'users.json';
-    a.click();
-}
+    try {
+        const response = await fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, email, password })
+        });
 
-// Регистрация ученика
-document.getElementById('register-student-form').addEventListener('submit', function (event) {
-    event.preventDefault();
+        const data = await response.json();
 
-    const username = document.getElementById('student-username').value;
-    const password = document.getElementById('student-password').value;
-    const parentUsername = document.getElementById('parent-username').value;
-
-    // Проверка уникальности имени пользователя
-    const userExists = users.some(user => user.username === username);
-    if (userExists) {
-        document.getElementById('message').textContent = "Имя пользователя занято. Пожалуйста, выберите другое.";
-        return;
+        if (response.ok) {
+            registerMessage.textContent = "Регистрация успешна!"; // Успешная регистрация
+            registerMessage.style.color = 'green';
+        } else {
+            registerMessage.textContent = data.detail; // Ошибка регистрации
+            registerMessage.style.color = 'red';
+        }
+    } catch (error) {
+        registerMessage.textContent = 'Ошибка: ' + error.message; // Ошибка сети или другая ошибка
+        registerMessage.style.color = 'red';
     }
-
-    // Добавление нового пользователя
-    const newUser = {
-        username: username,
-        password: password,
-        role: 'student',
-        parentUsername: parentUsername || null
-    };
-
-    users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(users)); // Сохраняем пользователей в localStorage
-    document.getElementById('message').textContent = "Регистрация успешна!";
-
-    // Очистка полей ввода
-    document.getElementById('student-username').value = '';
-    document.getElementById('student-password').value = '';
-    document.getElementById('parent-username').value = '';
 });
 
-// Регистрация родителя
-document.getElementById('register-parent-form').addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const username = document.getElementById('parent-username-reg').value;
-    const password = document.getElementById('parent-password').value;
-
-    // Проверка уникальности имени пользователя
-    const userExists = users.some(user => user.username === username);
-    if (userExists) {
-        document.getElementById('message').textContent = "Имя пользователя занято. Пожалуйста, выберите другое.";
-        return;
-    }
-
-    // Добавление нового родителя
-    const newParent = {
-        username: username,
-        password: password,
-        role: 'parent'
-    };
-
-    users.push(newParent);
-    saveUsers(); // Сохранить данные в файл
-    document.getElementById('message').textContent = "Регистрация успешна!";
-
-    // Очистка полей ввода
-    document.getElementById('parent-username-reg').value = '';
-    document.getElementById('parent-password').value = '';
-});
-
-// Вход в систему
-document.getElementById('login-form').addEventListener('submit', function (event) {
-    event.preventDefault();
+// Авторизация пользователя
+document.getElementById('login-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
 
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
+    const loginMessage = document.getElementById('login-message'); // Элемент для вывода сообщения
 
-    // Поиск пользователя
-    const user = users.find(user => user.username === username && user.password === password);
-    if (user) {
-        document.getElementById('message').textContent = "Добро пожаловать, " + username + "!";
-        document.getElementById('user-role').textContent = "Ваша роль: " + user.role;
-        document.getElementById('dashboard').style.display = 'block';
-        document.getElementById('modal').style.display = 'none';
-    } else {
-        document.getElementById('message').textContent = "Неверное имя пользователя или пароль.";
+    try {
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            loginMessage.textContent = "Авторизация успешна!"; // Успешная авторизация
+            loginMessage.style.color = 'green';
+        } else {
+            loginMessage.textContent = data.detail; // Ошибка авторизации
+            loginMessage.style.color = 'red';
+        }
+    } catch (error) {
+        loginMessage.textContent = 'Ошибка: ' + error.message; // Ошибка сети или другая ошибка
+        loginMessage.style.color = 'red';
     }
-
-    // Очистка полей ввода
-    document.getElementById('login-username').value = '';
-    document.getElementById('login-password').value = '';
 });
