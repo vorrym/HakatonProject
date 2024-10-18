@@ -4,16 +4,25 @@
   width: 600px;
   box-sizing: border-box;
 }
-}
+
 .button-container {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
+.heading{
+    color:bisque;
+}
 .container {
     text-align: center;
+    color:bisque;
 }
-
+.custom-tasks h2{
+    color:bisque;
+}
+.challenge h2{
+    color:bisque;
+}
 .button {
   background-color: #2e325a;
   color: #fff;
@@ -149,8 +158,13 @@ h2 {
     color: #e74c3c;
     margin-top: 15px;
 }
+.custom-tasks{
+    color: #000000;
+    margin-top: 25px;
 
-.button-group, .challenge, .motivation, .custom-tasks {
+}
+
+.button-group, .challenge, .motivation{
     margin-top: 25px;
 }
 
