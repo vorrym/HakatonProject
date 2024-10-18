@@ -38,7 +38,8 @@ const challenges = [
     "Посмотрите короткое обучающее видео."
 ];
 
-let tasksCompleted = 0;
+let tasksCompleted = localStorage.getItem('tasksCompleted') || 0;
+document.getElementById('tasks-completed').textContent = tasksCompleted;
 
 function generateChallenge() {
     const challenge = challenges[Math.floor(Math.random() * challenges.length)];
@@ -47,27 +48,31 @@ function generateChallenge() {
 
 function markTaskDone() {
     tasksCompleted++;
+    localStorage.setItem('tasksCompleted', tasksCompleted);
     document.getElementById('tasks-completed').textContent = tasksCompleted;
     alert("Задание выполнено! Отличная работа!");
 }
 
-// Мотивационные Цитаты
-const motivationalQuotes = [
-    "Билл Гейтс: 'Не сравнивайте себя с кем-либо в этом мире. Если вы это делаете, вы оскорбляете себя.'",
-    "Илон Маск: 'Когда что-то действительно важно, вы делаете это, даже если шансы не в вашу пользу.'",
-    "Опра Уинфри: 'Чем больше вы хвалите и отмечаете свою жизнь, тем больше поводов для праздника.'",
-    "Стив Джобс: 'Ваша работа займет большую часть жизни, и единственный способ быть по-настоящему довольным — делать то, что вы считаете великим делом.'",
-    "Уоррен Баффет: 'Лучшая инвестиция, которую вы можете сделать, — это инвестиция в себя.'"
-];
+// Собственные задачи
+function addCustomTask() {
+    const taskText = document.getElementById('custom-task-input').value.trim();
+    if (taskText) {
+        const ul = document.getElementById('custom-task-list');
+        const li = document.createElement('li');
+        li.textContent = taskText;
+        
+        const btn = document.createElement('button');
+        btn.textContent = "Выполнено";
+        btn.classList.add('task-done');
+        btn.onclick = function () {
+            ul.removeChild(li);
+            markTaskDone();
+        };
 
-function generateMotivation() {
-    const quote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
-    document.getElementById('quote').textContent = quote;
+        li.appendChild(btn);
+        ul.appendChild(li);
+        document.getElementById('custom-task-input').value = "";
+    }
 }
 
-// Инициализация
-window.onload = function() {
-    resetPomodoro();
-    generateChallenge();
-    generateMotivation();
-};
+// Мотива
