@@ -1,117 +1,105 @@
-const usersFilePath = 'users.json';
+// auth.js
 
-// Функция для чтения данных из файла
-async function readUsersFromFile() {
-    const response = await fetch(usersFilePath);
-    const data = await response.json();
-    return data.users;
-}
+// Импортировать данные пользователей из JSON-файла
+let users = [];
+fetch('users.json')
+    .then(response => response.json())
+    .then(data => {
+        users = data.users; // Предполагаем, что данные находятся в массиве users
+    });
 
-// Функция для записи данных в файл
-async function writeUsersToFile(users) {
+// Функция для сохранения пользователей в JSON-файл (для демонстрационных целей)
+function saveUsers() {
     const blob = new Blob([JSON.stringify({ users }, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'users.json';
     a.click();
-    URL.revokeObjectURL(url);
 }
 
 // Регистрация ученика
-document.getElementById('register-student-form').addEventListener('submit', async function (event) {
+document.getElementById('register-student-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const username = document.getElementById('student-username').value;
     const password = document.getElementById('student-password').value;
     const parentUsername = document.getElementById('parent-username').value;
 
-    const users = await readUsersFromFile();
-
-    // Проверка на существование пользователя
-    const existingUser = users.find(u => u.username === username);
-    if (existingUser) {
-        document.getElementById('message').textContent = "Пользователь уже существует.";
+    // Проверка уникальности имени пользователя
+    const userExists = users.some(user => user.username === username);
+    if (userExists) {
+        document.getElementById('message').textContent = "Имя пользователя занято. Пожалуйста, выберите другое.";
         return;
     }
 
-    // Добавление нового ученика
-    const newStudent = { username, password, role: 'student', tasksCompleted: 0 };
-    if (parentUsername) {
-        const parent = users.find(u => u.username === parentUsername && u.role === 'parent');
-        if (parent) {
-            newStudent.parentUsername = parent.username; // Привязываем ученика к родителю
-            parent.children = parent.children || [];
-            parent.children.push(newStudent.username); // Добавляем ученика в список детей родителя
-        } else {
-            document.getElementById('message').textContent = "Родитель не найден.";
-            return;
-        }
-    }
-    users.push(newStudent);
-    await writeUsersToFile(users);
+    // Добавление нового пользователя
+    const newUser = {
+        username: username,
+        password: password,
+        role: 'student',
+        parentUsername: parentUsername || null
+    };
 
-    document.getElementById('message').textContent = "Регистрация ученика успешна!";
+    users.push(newUser);
+    localStorage.setItem('users', JSON.stringify(users)); // Сохраняем пользователей в localStorage
+    document.getElementById('message').textContent = "Регистрация успешна!";
+
+    // Очистка полей ввода
+    document.getElementById('student-username').value = '';
+    document.getElementById('student-password').value = '';
+    document.getElementById('parent-username').value = '';
 });
 
 // Регистрация родителя
-document.getElementById('register-parent-form').addEventListener('submit', async function (event) {
+document.getElementById('register-parent-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const username = document.getElementById('parent-username-reg').value;
     const password = document.getElementById('parent-password').value;
 
-    const users = await readUsersFromFile();
-
-    // Проверка на существование пользователя
-    const existingUser = users.find(u => u.username === username);
-    if (existingUser) {
-        document.getElementById('message').textContent = "Пользователь уже существует.";
+    // Проверка уникальности имени пользователя
+    const userExists = users.some(user => user.username === username);
+    if (userExists) {
+        document.getElementById('message').textContent = "Имя пользователя занято. Пожалуйста, выберите другое.";
         return;
     }
 
     // Добавление нового родителя
-    const newParent = { username, password, role: 'parent', children: [] };
-    users.push(newParent);
-    await writeUsersToFile(users);
+    const newParent = {
+        username: username,
+        password: password,
+        role: 'parent'
+    };
 
-    document.getElementById('message').textContent = "Регистрация родителя успешна!";
+    users.push(newParent);
+    saveUsers(); // Сохранить данные в файл
+    document.getElementById('message').textContent = "Регистрация успешна!";
+
+    // Очистка полей ввода
+    document.getElementById('parent-username-reg').value = '';
+    document.getElementById('parent-password').value = '';
 });
 
-// Авторизация пользователя
-document.getElementById('login-form').addEventListener('submit', async function (event) {
+// Вход в систему
+document.getElementById('login-form').addEventListener('submit', function (event) {
     event.preventDefault();
 
     const username = document.getElementById('login-username').value;
     const password = document.getElementById('login-password').value;
 
-    const users = await readUsersFromFile();
-
-    const user = users.find(u => u.username === username && u.password === password);
-    if (!user) {
-        document.getElementById('message').textContent = "Неверные учетные данные.";
-        return;
+    // Поиск пользователя
+    const user = users.find(user => user.username === username && user.password === password);
+    if (user) {
+        document.getElementById('message').textContent = "Добро пожаловать, " + username + "!";
+        document.getElementById('user-role').textContent = "Ваша роль: " + user.role;
+        document.getElementById('dashboard').style.display = 'block';
+        document.getElementById('modal').style.display = 'none';
+    } else {
+        document.getElementById('message').textContent = "Неверное имя пользователя или пароль.";
     }
 
-    // Успешный вход
-    document.getElementById('dashboard').style.display = 'block';
-    document.getElementById('user-role').textContent = `Роль: ${user.role}`;
-    document.getElementById('tasks-completed').textContent = user.tasksCompleted;
-    document.getElementById('message').textContent = "Вход успешен!";
+    // Очистка полей ввода
+    document.getElementById('login-username').value = '';
+    document.getElementById('login-password').value = '';
 });
-
-// Функция завершения задачи
-function completeTask() {
-    const username = document.getElementById('login-username').value;
-    readUsersFromFile().then(users => {
-        const user = users.find(u => u.username === username);
-        if (user) {
-            user.tasksCompleted++;
-            document.getElementById('tasks-completed').textContent = user.tasksCompleted;
-
-            // Сохраняем обновленные данные
-            writeUsersToFile(users);
-            alert("Задача выполнена!");
-        }
-    });
-}
