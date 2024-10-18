@@ -1,35 +1,39 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Study Motivation App</title>
+    <title>Мотивация для Учёбы</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Study Motivation App</h1>
+        <h1>Мотивация для Учёбы</h1>
 
-        <!-- Pomodoro Timer Section -->
+        <!-- Помодоро Таймер -->
         <div class="pomodoro">
-            <h2>Pomodoro Timer</h2>
+            <h2>Таймер "Помодоро"</h2>
             <div id="timer">25:00</div>
-            <button onclick="startPomodoro()">Start</button>
-            <button onclick="resetPomodoro()">Reset</button>
+            <div class="button-group">
+                <button class="btn start" onclick="startPomodoro()">Начать</button>
+                <button class="btn reset" onclick="resetPomodoro()">Сбросить</button>
+            </div>
         </div>
 
-        <!-- Daily Challenge Section -->
+        <!-- Ежедневные Задачи -->
         <div class="challenge">
-            <h2>Daily Study Challenge</h2>
+            <h2>Ежедневное Задание</h2>
             <div id="daily-challenge"></div>
-            <button onclick="generateChallenge()">Get Today's Challenge</button>
+            <button class="btn task-done" onclick="markTaskDone()">Задание выполнено</button>
+            <p>Выполнено задач сегодня: <span id="tasks-completed">0</span></p>
+            <button class="btn new-task" onclick="generateChallenge()">Новое задание</button>
         </div>
 
-        <!-- Motivation Section -->
+        <!-- Мотивация -->
         <div class="motivation">
-            <h2>Motivational Quotes</h2>
+            <h2>Мотивационные Цитаты</h2>
             <div id="quote"></div>
-            <button onclick="generateMotivation()">Get Motivation</button>
+            <button class="btn quote" onclick="generateMotivation()">Получить мотивацию</button>
         </div>
     </div>
 
