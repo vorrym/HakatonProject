@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List with Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        #task-list {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .task {
+            display: flex;
+            justify-content: space-between;
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        .task input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        #start-timer {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #start-timer:hover {
+            background-color: #45a049;
+        }
+
+        #timer {
+            text-align: center;
+            font-size: 24px;
+            margin-top: 20px;
+            color: #333;
+        }
+
+        #add-task {
+            margin-top: 20px;
+        }
+
+        #add-task input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        #add-task button {
+            width: 18%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #add-task button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Task List with Timer</h1>
+
+    <div id="task-list">
+        <!-- Здесь будут отображаться задачи -->
+    </div>
+
+    <div id="add-task">
+        <input type="text" id="new-task" placeholder="Enter new task">
+        <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <button id="start-timer" onclick="startTimer()">Start Timer</button>
+    <div id="timer">Time left: 60</div>
+
+    <script>
+        let tasks = [];
+        let timeLeft = 60;
+        let timer;
+
+        function renderTasks() {
+            const taskList = document.getElementById("task-list");
+            taskList.innerHTML = "";
+
+            tasks.forEach((task, index) => {
+                const taskElement = document.createElement("div");
+                taskElement.className = "task";
+                taskElement.innerHTML = `
+                    <span><input type="checkbox" onchange="toggleTask(${index})" ${task.completed ? 'checked' : ''}> ${task.title}</span>
+                `;
+                taskList.appendChild(taskElement);
+            });
+        }
+
+        function addTask() {
+            const newTaskInput = document.getElementById("new-task");
+            const taskTitle = newTaskInput.value.trim();
+
+            if (taskTitle) {
+                tasks.push({ title: taskTitle, completed: false });
+                newTaskInput.value = "";
+                renderTasks();
+            }
+        }
+
+        function toggleTask(index) {
+            tasks[index].completed = !tasks[index].completed;
+            renderTasks();
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            timeLeft = 60;
+            timer = setInterval(function () {
+                timeLeft--;
+                document.getElementById("timer").textContent = "Time left: " + timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    alert("Time's up!");
+                }
+            }, 1000);
+        }
+
+        // Инициализация с пустым списком задач
+        renderTasks();
+    </script>
+
+</body>
+</html>
