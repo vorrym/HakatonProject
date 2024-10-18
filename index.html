@@ -39,37 +39,81 @@
             <ul id="custom-task-list"></ul>
         </div>
     <div class="container">
-        <h1>Добро пожаловать!</h1>
 
-        <!-- Регистрация/Вход -->
-        <div class="auth">
-            <form id="auth-form">
-                <input type="text" id="username" placeholder="Имя пользователя" required>
-                <input type="password" id="password" placeholder="Пароль" required>
-                <select id="role">
-                    <option value="student">Ученик</option>
-                    <option value="parent">Родитель</option>
-                </select>
-                <button type="submit" class="btn">Войти</button>
-            </form>
+
+        
+<button id="open-modal" class="btn">Вход / Регистрация</button> <!-- Кнопка для открытия модального окна -->
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="close-modal">&times;</span>
+                
+                <!-- Форма регистрации ученика -->
+                <h2>Регистрация ученика</h2>
+                <form id="register-student-form">
+                    <input type="text" id="student-username" placeholder="Имя пользователя" required>
+                    <input type="password" id="student-password" placeholder="Пароль" required>
+                    <input type="text" id="parent-username" placeholder="Имя пользователя родителя (необязательно)">
+                    <button type="submit" class="btn">Зарегистрироваться</button>
+                </form>
+
+                <!-- Форма регистрации родителя -->
+                <h2>Регистрация родителя</h2>
+                <form id="register-parent-form">
+                    <input type="text" id="parent-username-reg" placeholder="Имя пользователя" required>
+                    <input type="password" id="parent-password" placeholder="Пароль" required>
+                    <button type="submit" class="btn">Зарегистрироваться</button>
+                </form>
+
+                <!-- Форма входа -->
+                <h2>Вход</h2>
+                <form id="login-form">
+                    <input type="text" id="login-username" placeholder="Имя пользователя" required>
+                    <input type="password" id="login-password" placeholder="Пароль" required>
+                    <button type="submit" class="btn">Войти</button>
+                </form>
+
+                <div id="message"></div>
+            </div>
         </div>
 
         <div id="dashboard" style="display:none;">
             <h2>Панель управления</h2>
-            <div id="student-view" style="display:none;">
-                <p>Ваши задания:</p>
-                <p>Выполнено задач: <span id="student-tasks-completed">0</span></p>
+            <div id="user-view">
+                <p id="user-role"></p>
+                <p>Выполнено задач: <span id="tasks-completed">0</span></p>
                 <button class="btn task-done" onclick="completeTask()">Выполнить задачу</button>
-            </div>
-            <div id="parent-view" style="display:none;">
-                <p>Отчёт и прогресс ребёнка:</p>
-                <p id="child-progress"></p>
             </div>
         </div>
 
+        <div id="quote"></div>
     </div>
 
     <script src="auth.js"></script>
+                
+        
+        // Открытие и закрытие модального окна
+        const modal = document.getElementById("modal");
+        const openModalButton = document.getElementById("open-modal");
+        const closeModalButton = document.getElementById("close-modal");
+
+        openModalButton.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        closeModalButton.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+
+        
+        
         <!-- Мотивация -->
         <div class="motivation">
             <h2>Мотивационные Цитаты</h2>
