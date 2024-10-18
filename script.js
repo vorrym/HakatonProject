@@ -1,4 +1,4 @@
-// Pomodoro Timer
+// Помодоро Таймер
 let timer;
 let timeLeft = 25 * 60;
 
@@ -10,7 +10,7 @@ function startPomodoro() {
                 displayTime();
             } else {
                 clearInterval(timer);
-                alert("Time's up! Take a short break.");
+                alert("Время вышло! Сделайте короткий перерыв.");
             }
         }, 1000);
     }
@@ -29,27 +29,35 @@ function displayTime() {
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-// Daily Challenges
+// Ежедневные Задачи
 const challenges = [
-    "Solve 5 math problems.",
-    "Read 10 pages of a book.",
-    "Write a short summary of a topic you learned today.",
-    "Practice a new word in a foreign language 10 times.",
-    "Watch a short educational video."
+    "Решите 5 задач по математике.",
+    "Прочитайте 10 страниц книги.",
+    "Напишите краткое изложение новой темы.",
+    "Выучите 3 новых слова на иностранном языке.",
+    "Посмотрите короткое обучающее видео."
 ];
+
+let tasksCompleted = 0;
 
 function generateChallenge() {
     const challenge = challenges[Math.floor(Math.random() * challenges.length)];
     document.getElementById('daily-challenge').textContent = challenge;
 }
 
-// Motivational Quotes
+function markTaskDone() {
+    tasksCompleted++;
+    document.getElementById('tasks-completed').textContent = tasksCompleted;
+    alert("Задание выполнено! Отличная работа!");
+}
+
+// Мотивационные Цитаты
 const motivationalQuotes = [
-    "Bill Gates: 'Don't compare yourself with anyone in this world. If you do so, you are insulting yourself.'",
-    "Elon Musk: 'When something is important enough, you do it even if the odds are not in your favor.'",
-    "Oprah Winfrey: 'The more you praise and celebrate your life, the more there is in life to celebrate.'",
-    "Steve Jobs: 'Your work is going to fill a large part of your life, and the only way to be truly satisfied is to do what you believe is great work.'",
-    "Warren Buffett: 'The best investment you can make is in yourself.'"
+    "Билл Гейтс: 'Не сравнивайте себя с кем-либо в этом мире. Если вы это делаете, вы оскорбляете себя.'",
+    "Илон Маск: 'Когда что-то действительно важно, вы делаете это, даже если шансы не в вашу пользу.'",
+    "Опра Уинфри: 'Чем больше вы хвалите и отмечаете свою жизнь, тем больше поводов для праздника.'",
+    "Стив Джобс: 'Ваша работа займет большую часть жизни, и единственный способ быть по-настоящему довольным — делать то, что вы считаете великим делом.'",
+    "Уоррен Баффет: 'Лучшая инвестиция, которую вы можете сделать, — это инвестиция в себя.'"
 ];
 
 function generateMotivation() {
@@ -57,7 +65,7 @@ function generateMotivation() {
     document.getElementById('quote').textContent = quote;
 }
 
-// Initialize on load
+// Инициализация
 window.onload = function() {
     resetPomodoro();
     generateChallenge();
