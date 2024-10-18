@@ -11,15 +11,37 @@
         <h1>Мотивация для Учёбы</h1>
 
         <!-- Помодоро Таймер -->
-        <div class="pomodoro">
-            <h2>Таймер "Помодоро"</h2>
-            <div id="timer">25:00</div>
-            <div class="button-group">
-                <button class="btn start" onclick="startPomodoro()">Начать</button>
-                <button class="btn reset" onclick="resetPomodoro()">Сбросить</button>
-            </div>
+<div id="timer-message">Please select a timer before starting.</div>
+
+<div class="container">
+      <div class="timer">
+        <h1>🍅 Pomodoro Timer</h1>
+
+        <div class="button-container">
+          <button class="button" id="pomodoro-session">Pomodoro</button>
+          <button class="button" id="short-break">Short Break</button>
+          <button class="button" id="long-break">Long break</button>
         </div>
 
+        <div id="pomodoro-timer" class="timer-display" data-duration="25.00">
+          25:00
+        </div>
+
+        <div id="short-timer" class="timer-display" data-duration="5.00">
+          5:00
+        </div>
+
+        <div id="long-timer" class="timer-display" data-duration="10.00">
+          10:00
+        </div>
+
+        <div id="buttons">
+          <button id="start">START</button>
+          <button id="stop">STOP</button>
+        </div>
+      </div>
+    </div>
+        
         <!-- Ежедневные Задачи -->
         <div class="challenge">
             <h2>Ежедневные Задачи</h2>
